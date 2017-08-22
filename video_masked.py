@@ -8,7 +8,7 @@ while(True):
     # Capture frame-by-frame
     ret, frame = cap.read()
 
-    frame = cv2.GaussianBlur(frame, (5,5), 0)
+    frame = cv2.GaussianBlur(frame, (7,7), 0)
     # Our operations on the frame come here
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
@@ -20,7 +20,9 @@ while(True):
     # Bitwise-AND mask and original image
     res = cv2.bitwise_and(hsv,hsv, mask= mask)
 
+    res = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
 
+    ret1, thresh = cv2.threshold(res,127,255,cv2.THRESH_BINARY)
     # Display the resulting frame
     cv2.imshow('frame',frame)
     cv2.imshow('masked', res)
